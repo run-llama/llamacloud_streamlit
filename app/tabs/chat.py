@@ -1,6 +1,8 @@
 import streamlit as st
+import pandas as pd
 from typing import List
 import openai
+import nest_asyncio
 from llama_index.llms.openai import OpenAI
 from llama_index.core.schema import TextNode, QueryBundle, NodeWithScore
 from llama_index.core import Settings
@@ -12,6 +14,8 @@ from llama_cloud.client import AsyncLlamaCloud
 from llama_cloud.types import Retriever
 from app_settings import settings
 from utils import get_llamacloud_client, get_project_selector
+
+nest_asyncio.apply()
 
 class LlamaCloudCompositeRetriever(BaseRetriever):
 
@@ -37,6 +41,19 @@ class LlamaCloudCompositeRetriever(BaseRetriever):
             for retrieved_node in results.nodes
         ]
 
+def response_nodes_to_dataframe(response_nodes: List[NodeWithScore], retriever: Retriever) -> pd.DataFrame:
+    nodes_df_dicts = [
+        {
+            "Text": node.node.text,
+            "Sub-Index Name": node.node.metadata.get("retriever_pipeline_name", "N/A"),
+            "File Name": node.node.metadata.get("file_name", "N/A"),
+            "Metadata": node.node.metadata,
+        }
+        for node in response_nodes
+    ]
+    return pd.DataFrame.from_dict(nodes_df_dicts)
+
+
 async def chat_tab():
     client = get_llamacloud_client()
     if client is None:
@@ -50,6 +67,7 @@ async def chat_tab():
         api_key=settings.OPENAI_API_KEY.get_secret_value(),
     )
     st.title("Chat with a Composite Retriever")
+    st.info("Please note that this chat application does not yet support usage of retrieved images.")
     selected_project = await get_project_selector(client, "chat")
     retrievers = await client.retrievers.list_retrievers(project_id=selected_project.id)
     if not retrievers:
@@ -95,8 +113,11 @@ async def chat_tab():
     # If last message is not from assistant, generate a new response
     if st.session_state.messages[-1]["role"] != "assistant":
         with st.chat_message("assistant"):
-            response_stream = await chat_engine.achat(prompt)
-            st.write(response_stream.response)
-            message = {"role": "assistant", "content": response_stream.response}
+            response = await chat_engine.achat(prompt)
+            st.write(response.response)
+            sources_df = response_nodes_to_dataframe(response.source_nodes, selected_retriever)
+            if sources_df is not None and not sources_df.empty:
+                st.dataframe(sources_df)
+            message = {"role": "assistant", "content": response.response}
             # Add response to message history
             st.session_state.messages.append(message)

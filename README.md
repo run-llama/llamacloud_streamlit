@@ -20,7 +20,8 @@ Here are the steps for setting up your development environment to run this proje
 1. Add a `secrets.toml` file in the `.streamlit` folder and add a value for `openai_key` to it
     - `touch .streamlit/secrets.toml`
     - Add a line within the newly created `secrets.toml` that reads `openai_key = "YOUR OPENAI API KEY"`
-1. Run `make run` to run the streamlit app locally. You can then visit the application at `http://localhost:8501`
+1. (Optional) You can also setup a `.env` file to pre-populate some of the values used for global settings in `app/app_settings.py`. This may ease local use of the app so you don't need to continuously fill in the LlamaCloud API key in the UI.
+1. Run `make run` to run the streamlit app locally. You can then visit the application at [`http://localhost:8501`](http://localhost:8501)
     - Please note you will need to setup the LlamaCloud API key the app will use on the API Keys tab in the UI first.
 
 
