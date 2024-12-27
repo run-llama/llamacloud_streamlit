@@ -20,14 +20,6 @@ async def composite_retriever_tab():
     pipeline_name_to_pipeline = {p.name: p for p in pipelines}
     with project_container.form(key="create_composite_retriever_form"):
         composite_retriever_name = st.text_input("Composite Retriever Name", key="composite_retriever_name")
-        # sub_indices: List[RetrieverPipeline] = []
-        # for idx, sub_index in enumerate(sub_indices):
-        #     sub_index_container = st.container(border=True, key=f"sub_index_{idx}")
-        #     sub_index_container.write(f"Sub-Index {idx}")
-        #     default_pipeline_idx = next((i for i, p in enumerate(pipelines) if p.id == sub_index.pipeline_id), 0)
-        #     selected_pipeline = st.selectbox("Select Sub-Index", pipelines, key=f"sub_index_{idx}_selectbox", index=default_pipeline_idx, format_func=lambda p: p.name)
-        #     sub_index.pipeline_id = selected_pipeline.id
-        # add_sub_index = st.button("Add Sub-Index")
         retriever_pipelines_df = st.data_editor(
             pd.DataFrame([{"name": None, "description": None, "pipeline_name": ""}]),
             column_config={

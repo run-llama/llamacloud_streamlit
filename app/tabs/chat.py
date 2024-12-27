@@ -10,6 +10,7 @@ from llama_index.core.chat_engine import CondensePlusContextChatEngine
 from llama_index.core.memory import ChatMemoryBuffer
 from llama_cloud.client import AsyncLlamaCloud
 from llama_cloud.types import Retriever
+from app_settings import settings
 from utils import get_llamacloud_client, get_project_selector
 
 class LlamaCloudCompositeRetriever(BaseRetriever):
@@ -41,12 +42,12 @@ async def chat_tab():
     if client is None:
         st.write("Fill the form on the API Key tab first.")
         return
-    openai.api_key = st.secrets.openai_key
+    openai.api_key = settings.OPENAI_API_KEY.get_secret_value()
     Settings.llm = OpenAI(
         model="gpt-4o-mini",
         temperature=0.2,
         system_prompt="You are a friendly Q&A Chatbot",
-        api_key=st.secrets.openai_key,
+        api_key=settings.OPENAI_API_KEY.get_secret_value(),
     )
     st.title("Chat with a Composite Retriever")
     selected_project = await get_project_selector(client, "chat")

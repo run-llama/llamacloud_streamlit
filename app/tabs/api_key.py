@@ -1,11 +1,12 @@
 import streamlit as st
+from app_settings import settings
 
 async def api_key_tab():
     st.write("Enter your API key for LlamaCloud:")
     with st.form(key='api_key_form'):
         if st.session_state.get("llx_base_url") is None:
-            st.session_state.llx_base_url = "https://api.staging.llamaindex.ai"
-        base_url = st.text_input("Base URL", key="llx_base_url", placeholder="https://api.staging.llamaindex.ai")
+            st.session_state.llx_base_url = settings.DEFAULT_LLAMA_CLOUD_API_URL
+        base_url = st.text_input("Base URL", key="llx_base_url", placeholder=settings.DEFAULT_LLAMA_CLOUD_API_URL)
         api_key = st.text_input("API Key", type="password", key="llx_api_key", placeholder="llx-...")
         submit_button = st.form_submit_button(label='Submit')
 
