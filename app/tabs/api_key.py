@@ -7,7 +7,14 @@ async def api_key_tab():
         if st.session_state.get("llx_base_url") is None:
             st.session_state.llx_base_url = settings.DEFAULT_LLAMA_CLOUD_API_URL
         base_url = st.text_input("Base URL", key="llx_base_url", placeholder=settings.DEFAULT_LLAMA_CLOUD_API_URL)
-        api_key = st.text_input("API Key", type="password", key="llx_api_key", placeholder="llx-...")
+        default_api_key = settings.DEFAULT_LLAMA_CLOUD_API_KEY.get_secret_value() if settings.DEFAULT_LLAMA_CLOUD_API_KEY else None
+        api_key = st.text_input(
+            "API Key",
+            value=default_api_key,
+            type="password",
+            key="llx_api_key",
+            placeholder="llx-..."
+        )
         submit_button = st.form_submit_button(label='Submit')
 
         if submit_button:

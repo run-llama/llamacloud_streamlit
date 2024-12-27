@@ -58,7 +58,6 @@ async def chat_tab():
     retrievers = sorted(retrievers, key=lambda r: r.name)
     selected_retriever = st.selectbox("Select Retriever", retrievers, format_func=lambda r: r.name, key="retriever_selector")
 
-
     st.session_state.messages = st.session_state.get(
         "messages",
         [
