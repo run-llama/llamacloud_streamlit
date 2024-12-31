@@ -63,7 +63,6 @@ async def chat_tab():
     Settings.llm = OpenAI(
         model="gpt-4o-mini",
         temperature=0.2,
-        system_prompt="You are a friendly Q&A Chatbot",
         api_key=settings.OPENAI_API_KEY.get_secret_value(),
     )
     st.title("Chat with a Composite Retriever")
@@ -93,8 +92,9 @@ async def chat_tab():
                 client=client,
                 retriever=selected_retriever
             ),
+            system_prompt="You are a friendly Q&A Chatbot",
             chat_history=st.session_state.messages,
-            memory=ChatMemoryBuffer(token_limit=3000),
+            memory=ChatMemoryBuffer(token_limit=15000),
             llm=Settings.llm,
             verbose=True,
         ),
