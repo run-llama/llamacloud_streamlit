@@ -920,13 +920,13 @@ referencing = ">=0.31.0"
 
 [[package]]
 name = "llama-cloud"
-version = "0.1.7"
+version = "0.1.8"
 description = ""
 optional = false
 python-versions = "<4,>=3.8"
 files = [
-    {file = "llama_cloud-0.1.7-py3-none-any.whl", hash = "sha256:266db22939c537a2b802eea6a9af2701beff98d5ba46513248011a4f1c17afc6"},
-    {file = "llama_cloud-0.1.7.tar.gz", hash = "sha256:7c1767cb209905400e894566661a91230bcff83cd4d9c08e782fd2143ca6a646"},
+    {file = "llama_cloud-0.1.8-py3-none-any.whl", hash = "sha256:1a0c4cf212a04f2375f1d0791ca4e5f196e0fb0567c4ec96cd9dbcad773de60a"},
+    {file = "llama_cloud-0.1.8.tar.gz", hash = "sha256:7199bab2240a9cc330740003fa77648f43f6e533da411a8250a4a70584f91153"},
 ]
 
 [package.dependencies]
@@ -3067,4 +3067,4 @@ propcache = ">=0.2.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "f0d7abc5e6aa48d9d0a6ead4cc1d9162e6c88f5fbce48d866511e8017b4201a2"
+content-hash = "e4986a83a3e0d91ccdf78728f62a3ed9bdca2ef5bd2a50129284240fc80af3d6"

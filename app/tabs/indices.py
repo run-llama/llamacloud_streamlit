@@ -7,7 +7,8 @@ from llama_cloud.types import (
     File,
     PipelineTransformConfig_Auto,
     PipelineCreateEmbeddingConfig_OpenaiEmbedding,
-    OpenAiEmbedding
+    OpenAiEmbedding,
+    PipelineType,
 )
 
 
@@ -41,6 +42,7 @@ async def indices_tab():
                 project_container.success(f"Pipeline {pipeline_name} created!")
     
     pipelines = await client.pipelines.search_pipelines(project_id=selected_project.id)
+    pipelines = [pipeline for pipeline in pipelines if pipeline.pipeline_type == PipelineType.MANAGED]
     project_container.write(f"Add files to indices:")
     file_types = [supported_extension.lower() for supported_extension in supported_extensions]
     for pipeline in pipelines:

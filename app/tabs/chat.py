@@ -32,11 +32,11 @@ class LlamaCloudCompositeRetriever(BaseRetriever):
         return [
             NodeWithScore(
                 node=TextNode(
-                    id_=retrieved_node.id,
-                    text=retrieved_node.text,
-                    metadata=retrieved_node.metadata
+                    id_=retrieved_node.node.id,
+                    text=retrieved_node.node.text,
+                    metadata=retrieved_node.node.metadata
                 ),
-                score=1.0,
+                score=retrieved_node.score,
             )
             for retrieved_node in results.nodes
         ]
