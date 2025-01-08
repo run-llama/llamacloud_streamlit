@@ -3,7 +3,7 @@ This repo uses Streamlit to create an user-facing demo application that showcase
 
 It uses the [`llama-cloud` API Python client](https://pypi.org/project/llama-cloud/) *(`pip install llama-cloud`)*
 
-You can use the streamlit application now by visiting https://example.com
+You can use the streamlit application now by visiting [https://llamacloud.streamlit.app](https://llamacloud.streamlit.app)
 
 You will need access to LlamaCloud in order to [create an API key](https://docs.cloud.llamaindex.ai/llamacloud/getting_started/api_key) first to use within the app.
 
