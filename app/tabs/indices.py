@@ -51,8 +51,6 @@ async def indices_tab():
         pipeline_container.subheader(pipeline.name)
         pipeline_container.write(f"Index ID: {pipeline.id}")
         pipeline_container.write(f"Files in index: {len(pipeline_files)}")
-        pipeline_status = await client.pipelines.get_pipeline_status(pipeline_id=pipeline.id)
-        pipeline_container.write(f"Status: {pipeline_status.status}")
         with pipeline_container.form(key=f"add_files_form_pipeline_{pipeline.id}"):
             uploaded_files = st.file_uploader("Upload Files", type=file_types, key="files_" + pipeline.id, accept_multiple_files=True)
             add_files_button = st.form_submit_button(label="Add Files")
