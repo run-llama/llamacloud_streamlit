@@ -5,6 +5,7 @@ description = "Streamlit App Showcasing LlamaCloud's Capabilities"
 authors = ["Sourabh Desai <sourabh@runllama.ai>"]
 license = "MIT"
 readme = "README.md"
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.11"
